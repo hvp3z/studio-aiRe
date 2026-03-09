@@ -14,6 +14,8 @@ function parseProjectFile(filePath: string, category: ProjectCategory): Project 
     category,
     year: data.year,
     client: data.client,
+    projectType: data.projectType ?? '',
+    location: data.location ?? '',
     coverImage: data.coverImage,
     images: data.images ?? [],
   };
@@ -30,8 +32,8 @@ export function getProjectsByCategory(category: ProjectCategory): Project[] {
 
 export function getAllProjects(): Project[] {
   return [
-    ...getProjectsByCategory('espaces'),
-    ...getProjectsByCategory('identites'),
+    ...getProjectsByCategory('spaces'),
+    ...getProjectsByCategory('identities'),
   ];
 }
 

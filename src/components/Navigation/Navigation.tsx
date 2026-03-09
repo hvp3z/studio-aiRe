@@ -6,10 +6,10 @@ import Logo from '@/components/Logo/Logo';
 import styles from './Navigation.module.css';
 
 const NAV_LINKS: { label: string; href: string }[] = [
-  { label: 'ESPACES', href: '/espaces' },
-  { label: 'IDENTITÉS', href: '/identites' },
-  { label: 'OFFRES', href: '/offres' },
-  { label: 'À PROPOS', href: '/a-propos' },
+  { label: 'SPACES', href: '/spaces' },
+  { label: 'IDENTITIES', href: '/identities' },
+  { label: 'OFFERS', href: '/offers' },
+  { label: 'ABOUT', href: '/about' },
 ];
 
 export default function Navigation(): React.JSX.Element {
@@ -17,7 +17,6 @@ export default function Navigation(): React.JSX.Element {
 
   return (
     <nav className={styles.nav}>
-      <Logo />
       <ul className={styles.links}>
         {NAV_LINKS.map((link) => (
           <li key={link.href}>
@@ -32,6 +31,21 @@ export default function Navigation(): React.JSX.Element {
           </li>
         ))}
       </ul>
+
+      <div className={styles.logoCenter}>
+        <Logo />
+      </div>
+
+      <div className={styles.right}>
+        <a
+          href="https://www.instagram.com/studio___aire/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.link}
+        >
+          Instagram
+        </a>
+      </div>
     </nav>
   );
 }

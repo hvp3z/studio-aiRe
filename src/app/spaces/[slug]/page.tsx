@@ -8,16 +8,16 @@ import ProjectDetail from '@/components/ProjectDetail/ProjectDetail';
 import ProjectCarousel from '@/components/ProjectCarousel/ProjectCarousel';
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  return getAllProjectSlugs('espaces');
+  return getAllProjectSlugs('spaces');
 }
 
-export default async function EspaceDetailPage({
+export default async function SpaceDetailPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<React.JSX.Element> {
   const { slug } = await params;
-  const project = getProjectBySlug('espaces', slug);
+  const project = getProjectBySlug('spaces', slug);
   if (!project) notFound();
 
   const allProjects = getAllProjects();

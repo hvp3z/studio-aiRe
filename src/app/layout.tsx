@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
 import Navigation from '@/components/Navigation/Navigation';
+import WorkInProgress from '@/components/WorkInProgress/WorkInProgress';
 import './globals.css';
+
+const isProd = process.env.NODE_ENV === 'production';
 
 export const metadata: Metadata = {
   title: 'Studio Aire',
-  description: 'Design d\'espaces et d\'identités — Emma Reilhac',
+  description: 'Space and identity design — Emma Reilhac',
   icons: {
     icon: [
       { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
@@ -22,10 +25,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }): React.JSX.Element {
   return (
-    <html lang="fr">
+    <html lang="en">
       <body>
-        <Navigation />
-        <main style={{ paddingTop: 'var(--nav-height)' }}>{children}</main>
+        {isProd ? (
+          <WorkInProgress />
+        ) : (
+          <>
+            <Navigation />
+            <main style={{ paddingTop: 'var(--nav-height)' }}>{children}</main>
+          </>
+        )}
       </body>
     </html>
   );

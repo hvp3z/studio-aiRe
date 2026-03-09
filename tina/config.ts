@@ -4,7 +4,7 @@ const projectFields = [
   {
     type: 'string' as const,
     name: 'title',
-    label: 'Titre',
+    label: 'Title',
     required: true,
     isTitle: true,
   },
@@ -17,7 +17,7 @@ const projectFields = [
   {
     type: 'string' as const,
     name: 'year',
-    label: 'Année',
+    label: 'Year',
     required: true,
   },
   {
@@ -27,15 +27,27 @@ const projectFields = [
     required: true,
   },
   {
+    type: 'string' as const,
+    name: 'projectType',
+    label: 'Project type',
+    required: true,
+  },
+  {
+    type: 'string' as const,
+    name: 'location',
+    label: 'Location',
+    required: true,
+  },
+  {
     type: 'image' as const,
     name: 'coverImage',
-    label: 'Image de couverture',
+    label: 'Cover image',
     required: true,
   },
   {
     type: 'image' as const,
     name: 'images',
-    label: 'Images du projet',
+    label: 'Project images',
     list: true,
   },
 ];
@@ -49,16 +61,16 @@ export default defineConfig({
   schema: {
     collections: [
       {
-        name: 'espaces',
-        label: 'Espaces',
-        path: 'content/projects/espaces',
+        name: 'spaces',
+        label: 'Spaces',
+        path: 'content/projects/spaces',
         format: 'md',
         fields: projectFields,
       },
       {
-        name: 'identites',
-        label: 'Identités',
-        path: 'content/projects/identites',
+        name: 'identities',
+        label: 'Identities',
+        path: 'content/projects/identities',
         format: 'md',
         fields: projectFields,
       },

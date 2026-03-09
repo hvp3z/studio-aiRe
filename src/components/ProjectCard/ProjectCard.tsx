@@ -15,6 +15,12 @@ export default function ProjectCard({
       />
       <div className={styles.overlay}>
         <span className={styles.title}>{project.title}</span>
+        {project.projectType && (
+          <span className={styles.projectType}>{project.projectType}</span>
+        )}
+        {project.location && (
+          <span className={styles.location}>{project.location}</span>
+        )}
       </div>
     </Link>
   );

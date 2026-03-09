@@ -10,11 +10,11 @@ export default function ProjectDetail({
         <h1 className={styles.title}>{project.title}</h1>
         <div className={styles.meta}>
           <p>
-            <span className={styles.label}>Année : </span>
+            <span className={styles.label}>Year: </span>
             {project.year}
           </p>
           <p>
-            <span className={styles.label}>Client : </span>
+            <span className={styles.label}>Client: </span>
             {project.client}
           </p>
         </div>

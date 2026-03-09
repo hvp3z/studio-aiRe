@@ -1,4 +1,4 @@
-export type ProjectCategory = 'espaces' | 'identites';
+export type ProjectCategory = 'spaces' | 'identities';
 
 export interface Project {
   title: string;
@@ -6,6 +6,8 @@ export interface Project {
   category: ProjectCategory;
   year: string;
   client: string;
+  projectType: string;
+  location: string;
   coverImage: string;
   images: string[];
 }

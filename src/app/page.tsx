@@ -12,11 +12,11 @@ export default function HomePage(): React.JSX.Element {
         />
       </div>
       <nav className={styles.categories}>
-        <Link href="/espaces" className={styles.categoryLink}>
-          ESPACES
+        <Link href="/spaces" className={styles.categoryLink}>
+          SPACES
         </Link>
-        <Link href="/identites" className={styles.categoryLink}>
-          IDENTITÉS
+        <Link href="/identities" className={styles.categoryLink}>
+          IDENTITIES
         </Link>
       </nav>
     </div>

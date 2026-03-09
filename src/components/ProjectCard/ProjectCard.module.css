@@ -11,13 +11,20 @@
   object-fit: cover;
 }
 
+.card:hover .image {
+  opacity: 0;
+}
+
 .overlay {
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.55);
+  background-color: #ded6cb;
   opacity: 0;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
   padding: 16px;
 }
 
@@ -27,6 +34,23 @@
 
 .title {
   font-family: var(--font-heading);
-  color: #ffffff;
-  font-size: 20px;
+  color: #000000;
+  font-size: 24px;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.projectType {
+  font-family: var(--font-heading);
+  color: #000000;
+  font-size: 16px;
+  font-style: italic;
+  text-align: center;
+}
+
+.location {
+  font-family: var(--font-heading);
+  color: #000000;
+  font-size: 14px;
+  text-align: center;
 }

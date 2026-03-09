@@ -8,16 +8,16 @@ import ProjectDetail from '@/components/ProjectDetail/ProjectDetail';
 import ProjectCarousel from '@/components/ProjectCarousel/ProjectCarousel';
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  return getAllProjectSlugs('identites');
+  return getAllProjectSlugs('identities');
 }
 
-export default async function IdentiteDetailPage({
+export default async function IdentityDetailPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<React.JSX.Element> {
   const { slug } = await params;
-  const project = getProjectBySlug('identites', slug);
+  const project = getProjectBySlug('identities', slug);
   if (!project) notFound();
 
   const allProjects = getAllProjects();

@@ -2,13 +2,13 @@ import { getAllProjects } from '@/lib/content';
 import ProjectCarousel from '@/components/ProjectCarousel/ProjectCarousel';
 import styles from './page.module.css';
 
-export default function AProposPage(): React.JSX.Element {
+export default function AboutPage(): React.JSX.Element {
   const allProjects = getAllProjects();
 
   return (
     <div className={styles.page}>
       <section className={styles.content}>
-        <h1 className={styles.title}>À propos</h1>
+        <h1 className={styles.title}>About</h1>
 
         <div className={styles.info}>
           <p className={styles.studio}>Studio Aire</p>
@@ -17,13 +17,13 @@ export default function AProposPage(): React.JSX.Element {
 
         <div className={styles.contact}>
           <p>
-            <span className={styles.label}>Email : </span>
+            <span className={styles.label}>Email: </span>
             <a href="mailto:contact@studioaire.fr" className={styles.link}>
               contact@studioaire.fr
             </a>
           </p>
           <p>
-            <span className={styles.label}>Téléphone : </span>
+            <span className={styles.label}>Phone: </span>
             <a href="tel:+33600000000" className={styles.link}>
               06 00 00 00 00
             </a>
@@ -31,7 +31,7 @@ export default function AProposPage(): React.JSX.Element {
         </div>
       </section>
 
-      <ProjectCarousel projects={allProjects} heading="Projets" />
+      <ProjectCarousel projects={allProjects} heading="Galerie Projets" />
     </div>
   );
 }
