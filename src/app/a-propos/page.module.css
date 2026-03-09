@@ -1,0 +1,48 @@
+.page {
+  min-height: calc(100vh - var(--nav-height));
+}
+
+.content {
+  padding: 60px 40px;
+  max-width: 640px;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 42px;
+  line-height: 1.1;
+  margin-bottom: 48px;
+}
+
+.info {
+  margin-bottom: 32px;
+}
+
+.studio {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.name {
+  font-size: 14px;
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+}
+
+.label {
+  color: var(--color-accent);
+}
+
+.link {
+  color: var(--color-text);
+}
+
+.link:hover {
+  color: var(--color-accent);
+}

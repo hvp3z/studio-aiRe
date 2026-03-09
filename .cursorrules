@@ -1,0 +1,735 @@
+# Studio Aire — Portfolio Website
+# Cursor AI Rules & Full Project Briefing
+# =========================================
+# READ THIS ENTIRE FILE BEFORE WRITING ANY CODE.
+# These rules govern every decision in this project.
+
+---
+
+## PROJECT OVERVIEW
+
+Client: Studio Aire — French interior/spatial design studio run by Emma Reilhac.
+Two service categories: "Espaces" (spatial design) and "Identités" (brand identity).
+This is a minimal portfolio website. Clean, elegant, image-driven. No decorative code.
+
+Reference sites (study these before building any page):
+- https://studio-cole.com — overall aesthetic, navigation, homepage feel
+- https://atelierconcipio.fr/copie-de-saint-denis — exact template for project detail pages
+
+---
+
+## TECH STACK
+
+- Framework: Next.js 14, App Router, TypeScript (strict)
+- CMS: Tina CMS (visual editor at /admin, content stored as Markdown files)
+- Hosting: Vercel
+- Styling: CSS Modules only (*.module.css co-located with each component)
+- Content parsing: gray-matter (reads Markdown frontmatter at build/request time)
+- Fonts: Self-hosted in /public/fonts/ (loaded via @font-face in globals.css)
+- Images: Standard <img> tags, files stored in /public/images/projects/[slug]/
+
+---
+
+## ABSOLUTE RULES — NEVER VIOLATE THESE
+
+### 1. ZERO ANIMATIONS — THIS IS THE MOST IMPORTANT RULE
+The client explicitly stated: "0 effets, elle aime pas ça."
+- NO CSS `transition` property, anywhere, ever
+- NO CSS `animation` property or `@keyframes`
+- NO JavaScript-based animations (framer-motion, GSAP, anime.js, etc.)
+- NO scroll-triggered effects or parallax
+- NO loading spinners, skeleton screens, or fade-ins
+- Hover states MUST switch INSTANTLY — just toggle opacity/color with no easing
+- If you write `transition:` anywhere, delete it immediately
+
+### 2. CSS MODULES ONLY
+- Every component gets exactly two files: ComponentName.tsx + ComponentName.module.css
+- NO Tailwind utility classes in JSX (the project uses --no-tailwind)
+- NO styled-components, NO emotion, NO CSS-in-JS
+- NO inline `style={{}}` objects except for dynamically computed values (e.g., backgroundImage)
+- Always use CSS custom properties (--color-bg) not raw hex values in component CSS
+
+### 3. SERVER COMPONENTS BY DEFAULT
+- All pages and components are Server Components unless they absolutely need interactivity
+- Data fetching: call content functions from src/lib/content.ts directly in async components
+- NO useEffect for data fetching
+- NO useState for content data
+- Only add 'use client' when truly required (e.g., a hamburger menu toggle)
+
+### 4. TYPESCRIPT STRICT
+- Every prop, return type, and variable must be explicitly typed
+- All prop interfaces defined in src/lib/types.ts
+- NO `any` type
+- NO `as unknown as X` hacks
+
+### 5. LANGUAGE: FRENCH
+- All visible UI text must be in French
+- Navigation: ESPACES | IDENTITÉS | OFFRES | À PROPOS
+- Use proper French accents: É, È, À, Ô, Û, etc.
+- Category slugs in URLs: /espaces and /identites (no accent in URL)
+
+### 6. NO THIRD-PARTY UI COMPONENTS
+- NO shadcn/ui, NO MUI, NO Radix UI, NO Headless UI, NO Ant Design
+- Build every UI element from scratch with CSS Modules
+- The only allowed external packages: tinacms, gray-matter
+
+---
+
+## DESIGN SYSTEM
+
+### Colors (use CSS variables, never raw hex)
+```css
+--color-bg:     #ded6cb   /* warm beige — page background */
+--color-text:   #000000   /* black — body text */
+--color-accent: #653c1c   /* warm brown — accent, labels, logo dot */
+```
+
+### Typography
+```css
+--font-heading: 'BlackMango', serif              /* project titles, big display text */
+--font-body:    'AcuminExtraCondensedThin', sans-serif   /* nav, body, meta, labels */
+```
+
+Font files are in /public/fonts/ and loaded via @font-face in src/app/globals.css.
+Do NOT use next/font. Do NOT use Google Fonts.
+
+### Spacing & Layout
+```css
+--nav-height:             60px
+--grid-gap:               2px     /* tight grid between project cards */
+--card-aspect:            4 / 3   /* project card image aspect ratio */
+--carousel-thumb-width:   180px
+--carousel-thumb-height:  120px
+```
+
+---
+
+## FILE STRUCTURE
+
+```
+/website
+├── .cursorrules                          ← you are here
+├── .env.local                            ← Tina Cloud credentials (never commit)
+├── next.config.js
+├── tsconfig.json
+├── package.json
+│
+├── tina/
+│   └── config.ts                         ← Tina CMS schema (two collections)
+│
+├── public/
+│   ├── fonts/
+│   │   ├── BlackMango.woff2
+│   │   ├── BlackMango.woff
+│   │   ├── AcuminExtraCondensedThin.woff2
+│   │   └── AcuminExtraCondensedThin.woff
+│   ├── images/
+│   │   └── projects/
+│   │       └── [slug]/cover.jpg, 01.jpg, 02.jpg ...
+│   ├── logo-dark.png                     ← black logo on white/transparent bg
+│   └── logo-light.png                    ← black logo on beige bg
+│
+├── content/
+│   └── projects/
+│       ├── espaces/[slug].md             ← one file per Spaces project
+│       └── identites/[slug].md           ← one file per Identities project
+│
+└── src/
+    ├── app/
+    │   ├── layout.tsx                    ← Navigation only (carousel is per-page)
+    │   ├── globals.css                   ← @font-face, reset, body base styles
+    │   ├── page.tsx                      ← Homepage /
+    │   ├── espaces/
+    │   │   ├── page.tsx                  ← /espaces — project grid
+    │   │   └── [slug]/page.tsx           ← /espaces/[slug] — project detail
+    │   ├── identites/
+    │   │   ├── page.tsx                  ← /identites — project grid
+    │   │   └── [slug]/page.tsx           ← /identites/[slug] — project detail
+    │   ├── offres/
+    │   │   └── page.tsx                  ← /offres — services page (static)
+    │   └── a-propos/
+    │       └── page.tsx                  ← /a-propos — about + contact info
+    │
+    ├── components/
+    │   ├── Navigation/
+    │   │   ├── Navigation.tsx
+    │   │   └── Navigation.module.css
+    │   ├── Logo/
+    │   │   ├── Logo.tsx
+    │   │   └── Logo.module.css
+    │   ├── ProjectCard/
+    │   │   ├── ProjectCard.tsx
+    │   │   └── ProjectCard.module.css
+    │   ├── ProjectGrid/
+    │   │   ├── ProjectGrid.tsx
+    │   │   └── ProjectGrid.module.css
+    │   ├── ProjectDetail/
+    │   │   ├── ProjectDetail.tsx
+    │   │   └── ProjectDetail.module.css
+    │   └── ProjectCarousel/
+    │       ├── ProjectCarousel.tsx
+    │       └── ProjectCarousel.module.css
+    │
+    ├── lib/
+    │   ├── content.ts                    ← data layer: all content functions
+    │   └── types.ts                      ← all TypeScript interfaces
+    │
+    └── styles/
+        └── tokens.css                    ← CSS custom properties (imported in globals.css)
+```
+
+---
+
+## ROUTES
+
+| Route | Description |
+|---|---|
+| `/` | Homepage — logo + two large links to ESPACES and IDENTITÉS |
+| `/espaces` | 3-column grid of all Espaces projects |
+| `/espaces/[slug]` | Project detail: sticky left info panel + scrolling right images |
+| `/identites` | 3-column grid of all Identités projects |
+| `/identites/[slug]` | Project detail: sticky left info panel + scrolling right images |
+| `/offres` | Static services/offers page + carousel at bottom |
+| `/a-propos` | About page with Emma Reilhac contact info + carousel at bottom |
+| `/admin` | Tina CMS editor — DO NOT touch this directory |
+
+---
+
+## CONTENT SCHEMA (Markdown frontmatter)
+
+Every project file follows this exact schema:
+
+```yaml
+---
+title: "Nom du projet"
+slug: "nom-du-projet"
+year: "2024"
+client: "Nom du client"
+coverImage: "/images/projects/nom-du-projet/cover.jpg"
+images:
+  - "/images/projects/nom-du-projet/01.jpg"
+  - "/images/projects/nom-du-projet/02.jpg"
+  - "/images/projects/nom-du-projet/03.jpg"
+---
+```
+
+- `slug` must be kebab-case, URL-safe, no accents
+- `coverImage` is used in grids and carousels
+- `images` is the ordered list shown in the right column of the detail page
+- No body text content is needed (images only on detail pages)
+
+---
+
+## TYPESCRIPT TYPES (src/lib/types.ts)
+
+```typescript
+export type ProjectCategory = 'espaces' | 'identites';
+
+export interface Project {
+  title: string;
+  slug: string;
+  category: ProjectCategory;
+  year: string;
+  client: string;
+  coverImage: string;
+  images: string[];
+}
+
+export interface ProjectCardProps {
+  project: Project;
+  href: string;
+}
+
+export interface ProjectGridProps {
+  projects: Project[];
+  category: ProjectCategory;
+}
+
+export interface ProjectDetailProps {
+  project: Project;
+}
+
+export interface ProjectCarouselProps {
+  projects: Project[];
+  heading?: string;
+}
+```
+
+---
+
+## CONTENT UTILITY (src/lib/content.ts)
+
+Use gray-matter to read Markdown files directly from the filesystem.
+This is a Server-only module — never import it in client components.
+
+```typescript
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import { Project, ProjectCategory } from './types';
+
+const CONTENT_ROOT = path.join(process.cwd(), 'content', 'projects');
+
+function parseProjectFile(filePath: string, category: ProjectCategory): Project {
+  const raw = fs.readFileSync(filePath, 'utf-8');
+  const { data } = matter(raw);
+  return {
+    title: data.title,
+    slug: data.slug,
+    category,
+    year: data.year,
+    client: data.client,
+    coverImage: data.coverImage,
+    images: data.images ?? [],
+  };
+}
+
+export function getProjectsByCategory(category: ProjectCategory): Project[] {
+  const dir = path.join(CONTENT_ROOT, category);
+  if (!fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir)
+    .filter((f) => f.endsWith('.md'))
+    .map((f) => parseProjectFile(path.join(dir, f), category));
+}
+
+export function getAllProjects(): Project[] {
+  return [
+    ...getProjectsByCategory('espaces'),
+    ...getProjectsByCategory('identites'),
+  ];
+}
+
+export function getProjectBySlug(
+  category: ProjectCategory,
+  slug: string
+): Project | undefined {
+  return getProjectsByCategory(category).find((p) => p.slug === slug);
+}
+
+export function getAllProjectSlugs(
+  category: ProjectCategory
+): { slug: string }[] {
+  return getProjectsByCategory(category).map((p) => ({ slug: p.slug }));
+}
+```
+
+---
+
+## CSS TOKENS (src/styles/tokens.css)
+
+```css
+:root {
+  --color-bg: #ded6cb;
+  --color-text: #000000;
+  --color-accent: #653c1c;
+
+  --font-heading: 'BlackMango', serif;
+  --font-body: 'AcuminExtraCondensedThin', sans-serif;
+
+  --nav-height: 60px;
+  --grid-gap: 2px;
+  --card-aspect: 4 / 3;
+  --carousel-thumb-width: 180px;
+  --carousel-thumb-height: 120px;
+}
+```
+
+---
+
+## GLOBAL CSS (src/app/globals.css)
+
+```css
+@import '../styles/tokens.css';
+
+@font-face {
+  font-family: 'BlackMango';
+  src: url('/fonts/BlackMango.woff2') format('woff2'),
+       url('/fonts/BlackMango.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'AcuminExtraCondensedThin';
+  src: url('/fonts/AcuminExtraCondensedThin.woff2') format('woff2'),
+       url('/fonts/AcuminExtraCondensedThin.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+  font-display: block;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+```
+
+---
+
+## NEXT.CONFIG.JS
+
+```javascript
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  images: { unoptimized: true },
+  reactStrictMode: true,
+};
+module.exports = nextConfig;
+```
+
+---
+
+## PACKAGE.JSON SCRIPTS
+
+```json
+{
+  "scripts": {
+    "dev": "tinacms dev -c \"next dev\"",
+    "build": "tinacms build && next build",
+    "start": "next start",
+    "lint": "next lint"
+  }
+}
+```
+
+---
+
+## KEY COMPONENT IMPLEMENTATIONS
+
+### Navigation (src/components/Navigation/)
+
+Fixed top bar, 60px high, z-index: 100.
+Logo on the left, four nav links on the right.
+Links: ESPACES → /espaces, IDENTITÉS → /identites, OFFRES → /offres, À PROPOS → /a-propos
+Active link: color changes to --color-accent (no underline, no transition).
+Background: --color-bg (beige). No border, no shadow.
+
+### ProjectCard (src/components/ProjectCard/)
+
+Container: position relative, aspect-ratio: var(--card-aspect), overflow hidden.
+Image: width 100%, height 100%, object-fit: cover.
+Overlay div: position absolute, inset: 0, background rgba(0,0,0,0.55), opacity: 0 by default.
+Title inside overlay: font-family var(--font-heading), color white, bottom-aligned.
+On :hover → overlay opacity becomes 1. NO transition property. INSTANT.
+
+```css
+/* CORRECT — instant hover */
+.card:hover .overlay {
+  opacity: 1;
+}
+
+/* WRONG — never write this */
+.overlay {
+  transition: opacity 0.3s ease; /* FORBIDDEN */
+}
+```
+
+### ProjectGrid (src/components/ProjectGrid/)
+
+CSS Grid, 3 columns, gap: var(--grid-gap).
+```css
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--grid-gap);
+}
+```
+
+### ProjectDetail (src/components/ProjectDetail/)
+
+This is the most important layout. It mirrors atelierconcipio.fr/copie-de-saint-denis exactly.
+
+The wrapper is a flex row. The LEFT column is sticky. The RIGHT column is normal flow.
+As the user scrolls, the right column moves and the left stays in place.
+
+```css
+/* CRITICAL: align-items: flex-start is required for sticky to work */
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding-top: var(--nav-height);
+}
+
+.left {
+  position: sticky;
+  top: var(--nav-height);
+  width: 40%;
+  height: calc(100vh - var(--nav-height));
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;   /* meta info sits at the bottom of the panel */
+  flex-shrink: 0;
+}
+
+.right {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--grid-gap);
+}
+
+.right img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+```
+
+Left column content: project title (--font-heading, large), then meta: year, client.
+Meta labels ("Année :", "Client :") use color: var(--color-accent).
+Right column: render all project.images as <img> tags, stacked vertically.
+
+### ProjectCarousel (src/components/ProjectCarousel/)
+
+Horizontal row of project thumbnails. Appears at the bottom of:
+- /espaces/[slug] (show all projects except current)
+- /identites/[slug] (show all projects except current)
+- /offres (show all projects)
+- /a-propos (show all projects)
+
+NOT in layout.tsx. Rendered inside each page component.
+
+```css
+.track {
+  display: flex;
+  flex-direction: row;
+  gap: var(--grid-gap);
+  overflow-x: auto;
+  padding: 0 40px;
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.item {
+  flex-shrink: 0;
+  width: var(--carousel-thumb-width);
+}
+
+.thumb {
+  position: relative;
+  width: var(--carousel-thumb-width);
+  height: var(--carousel-thumb-height);
+  overflow: hidden;
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* same instant hover pattern */
+.thumbOverlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+}
+
+.item:hover .thumbOverlay {
+  opacity: 1;
+}
+```
+
+---
+
+## TINA CMS CONFIG (tina/config.ts)
+
+```typescript
+import { defineConfig } from 'tinacms';
+
+const projectFields = [
+  { type: 'string' as const, name: 'title', label: 'Titre', required: true, isTitle: true },
+  { type: 'string' as const, name: 'slug', label: 'Slug (URL)', required: true },
+  { type: 'string' as const, name: 'year', label: 'Année', required: true },
+  { type: 'string' as const, name: 'client', label: 'Client', required: true },
+  { type: 'image' as const, name: 'coverImage', label: 'Image de couverture', required: true },
+  { type: 'image' as const, name: 'images', label: 'Images du projet', list: true },
+];
+
+export default defineConfig({
+  branch: process.env.NEXT_PUBLIC_TINA_BRANCH ?? 'main',
+  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID ?? '',
+  token: process.env.TINA_TOKEN ?? '',
+  build: { outputFolder: 'admin', publicFolder: 'public' },
+  media: { tina: { mediaRoot: 'images', publicFolder: 'public' } },
+  schema: {
+    collections: [
+      {
+        name: 'espaces',
+        label: 'Espaces',
+        path: 'content/projects/espaces',
+        format: 'md',
+        fields: projectFields,
+      },
+      {
+        name: 'identites',
+        label: 'Identités',
+        path: 'content/projects/identites',
+        format: 'md',
+        fields: projectFields,
+      },
+    ],
+  },
+});
+```
+
+---
+
+## PROJECT DETAIL PAGE TEMPLATE
+
+Both /espaces/[slug] and /identites/[slug] follow this exact pattern:
+
+```typescript
+// src/app/espaces/[slug]/page.tsx
+import { notFound } from 'next/navigation';
+import { getProjectBySlug, getAllProjectSlugs, getAllProjects } from '@/lib/content';
+import ProjectDetail from '@/components/ProjectDetail/ProjectDetail';
+import ProjectCarousel from '@/components/ProjectCarousel/ProjectCarousel';
+
+export async function generateStaticParams() {
+  return getAllProjectSlugs('espaces');
+}
+
+export default async function EspaceDetailPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const project = getProjectBySlug('espaces', params.slug);
+  if (!project) notFound();
+
+  const allProjects = getAllProjects();
+  const carouselProjects = allProjects.filter((p) => p.slug !== project.slug);
+
+  return (
+    <>
+      <ProjectDetail project={project} />
+      <ProjectCarousel projects={carouselProjects} />
+    </>
+  );
+}
+```
+
+---
+
+## À PROPOS PAGE CONTENT
+
+The contact page shows information only (no form):
+- Studio name: Studio Aire
+- Contact person: Emma Reilhac
+- Email: [to be provided by client — use placeholder for now]
+- Phone: [to be provided by client — use placeholder for now]
+- ProjectCarousel at bottom showing all projects
+
+---
+
+## IMPLEMENTATION ORDER
+
+Build in this exact order — each phase depends on the previous:
+
+1. **Scaffold** — `npx create-next-app@latest . --typescript --app --no-tailwind --src-dir --import-alias "@/*"` (run inside /website)
+2. **Install deps** — `npm install tinacms gray-matter` + `npm install -D @tinacms/cli`
+3. **Assets** — copy fonts to public/fonts/, copy logos to public/
+4. **tokens.css** — create src/styles/tokens.css
+5. **globals.css** — replace default with @font-face + reset
+6. **next.config.js** — replace with config above
+7. **types.ts** — create src/lib/types.ts
+8. **content.ts** — create src/lib/content.ts
+9. **Sample content** — create 3 sample .md files per category in content/projects/
+10. **Navigation** — build Navigation + Logo components
+11. **layout.tsx** — add Navigation, set lang="fr", pad body
+12. **Homepage** — src/app/page.tsx
+13. **ProjectCard + ProjectGrid** — components + espaces/page.tsx + identites/page.tsx
+14. **ProjectDetail** — component + both [slug]/page.tsx files
+15. **ProjectCarousel** — component, add to detail pages + static pages
+16. **Offres page** — static content
+17. **À Propos page** — contact info + carousel
+18. **Tina CMS** — write tina/config.ts, update package.json scripts, test /admin
+19. **Vercel deploy** — push to GitHub, connect Vercel, set env vars
+
+---
+
+## WHEN CREATING ANY NEW COMPONENT
+
+Checklist:
+1. Create src/components/[Name]/[Name].tsx
+2. Create src/components/[Name]/[Name].module.css
+3. Add prop types to src/lib/types.ts if not already there
+4. Import in consuming file as: `import [Name] from '@/components/[Name]/[Name]'`
+5. Check: does any CSS contain `transition`? If yes, delete it.
+
+---
+
+## ASSETS AVAILABLE IN PROJECT ROOT (move these before starting)
+
+Located at: c:\Users\matdi\Documents\myApps\Studio aiRe\
+- Logo_final-04.png → rename to logo-dark.png → copy to website/public/
+- Logo_final-08.png → rename to logo-light.png → copy to website/public/
+
+Logo description:
+- Both logos: abstract "nr" lettermark (black) + "studio aire" text below
+- logo-dark.png: black mark on white/transparent background
+- logo-light.png: black mark on beige (#ded6cb) background
+- Use logo-dark.png in the Navigation (on beige background it will look identical)
+
+---
+
+## VERCEL DEPLOYMENT
+
+Build command: `npx tinacms build && next build`
+Root directory: website (if repo contains the parent folder)
+Environment variables required:
+  NEXT_PUBLIC_TINA_CLIENT_ID=...
+  TINA_TOKEN=...
+  NEXT_PUBLIC_TINA_BRANCH=main
+
+For local dev without Tina Cloud:
+  Add to .env.local: TINA_PUBLIC_IS_LOCAL=true
+
+---
+
+## FINAL ACCEPTANCE CHECKLIST
+
+Before considering the project done, verify:
+- [ ] Page background is #ded6cb (beige) on every page
+- [ ] BlackMango font renders on all project titles and headings
+- [ ] AcuminExtraCondensedThin renders on nav, meta, body text
+- [ ] Hovering a project card shows overlay INSTANTLY (zero delay, no easing)
+- [ ] On project detail page: left column stays fixed while scrolling through images
+- [ ] Project carousel scrolls horizontally, no scrollbar visible
+- [ ] grep -r "transition" src/ returns zero results
+- [ ] grep -r "animation" src/ returns zero results (except @font-face font-display)
+- [ ] All nav text is in French with correct accents
+- [ ] /admin opens Tina CMS editor in development mode
+- [ ] /a-propos shows Emma Reilhac contact block
+- [ ] `npm run build` completes with zero TypeScript errors
