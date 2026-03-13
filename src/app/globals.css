@@ -10,10 +10,9 @@
 }
 
 @font-face {
-  font-family: 'AcuminExtraCondensedThin';
-  src: url('/fonts/AcuminExtraCondensedThin.woff2') format('woff2'),
-    url('/fonts/AcuminExtraCondensedThin.woff') format('woff');
-  font-weight: 100;
+  font-family: 'AcuminRPro';
+  src: url('/fonts/Acumin-RPro.otf') format('opentype');
+  font-weight: 400;
   font-style: normal;
   font-display: block;
 }
