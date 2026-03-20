@@ -31,7 +31,7 @@ export default function AboutPage(): React.JSX.Element {
         </div>
       </section>
 
-      <ProjectCarousel projects={allProjects} heading="Galerie Projets" />
+      <ProjectCarousel projects={allProjects} heading="Project Gallery" />
     </div>
   );
 }
