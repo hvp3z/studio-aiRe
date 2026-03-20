@@ -72,7 +72,7 @@ export default function ProjectDetail({
         )}
       </div>
       <div className={styles.right}>
-        {project.images.map((src, index) => (
+        {project.images.filter(Boolean).map((src, index) => (
           <img
             key={index}
             src={src}

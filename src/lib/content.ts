@@ -19,9 +19,9 @@ function parseProjectFile(filePath: string, category: ProjectCategory): Project 
     description: data.description ?? '',
     surface: data.surface ?? '',
     mission: data.mission ?? '',
-    planImage: data.planImage ?? '',
+    planImage: data.planImage || '',
     coverImage: data.coverImage,
-    images: data.images ?? [],
+    images: (data.images ?? []).filter(Boolean),
   };
 }
 

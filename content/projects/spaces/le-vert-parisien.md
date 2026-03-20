@@ -15,7 +15,6 @@ images:
   - /images/LVP/Image%2007.png
   - /images/LVP/image%2008.png
   - /images/LVP/final.png
-  - ''
 ---
 
 

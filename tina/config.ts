@@ -49,6 +49,13 @@ const sharedFields = [
     name: 'images',
     label: 'Project images',
     list: true,
+    ui: {
+      validate: (value: string[] | undefined) => {
+        if (value?.some((v) => !v)) {
+          return 'Please remove empty image slots or select an image for each';
+        }
+      },
+    },
   },
 ];
 
