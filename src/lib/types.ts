@@ -8,6 +8,10 @@ export interface Project {
   client: string;
   projectType: string;
   location: string;
+  description: string;
+  surface: string;
+  mission: string;
+  planImage: string;
   coverImage: string;
   images: string[];
 }

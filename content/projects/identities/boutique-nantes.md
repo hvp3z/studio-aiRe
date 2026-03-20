@@ -5,6 +5,8 @@ year: "2023"
 client: "Les Belles Choses"
 projectType: "visual identity"
 location: "Nantes — France"
+description: "Création de l'identité visuelle complète"
+mission: "conception/réalisation"
 coverImage: "/images/projects/boutique-nantes/cover.jpg"
 images:
   - "/images/projects/boutique-nantes/01.jpg"

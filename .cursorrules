@@ -87,7 +87,7 @@ The client explicitly stated: "0 effets, elle aime pas ça."
 ### Typography
 ```css
 --font-heading: 'BlackMango', serif              /* project titles, big display text */
---font-body:    'AcuminExtraCondensedThin', sans-serif   /* nav, body, meta, labels */
+--font-body:    'HeadingNowTrial-31Thin', sans-serif   /* nav, body, meta, labels */
 ```
 
 Font files are in /public/fonts/ and loaded via @font-face in src/app/globals.css.
@@ -121,8 +121,7 @@ Do NOT use next/font. Do NOT use Google Fonts.
 │   ├── fonts/
 │   │   ├── BlackMango.woff2
 │   │   ├── BlackMango.woff
-│   │   ├── AcuminExtraCondensedThin.woff2
-│   │   └── AcuminExtraCondensedThin.woff
+│   │   └── HeadingNowTrial-31Thin.ttf
 │   ├── images/
 │   │   └── projects/
 │   │       └── [slug]/cover.jpg, 01.jpg, 02.jpg ...
@@ -197,7 +196,9 @@ Do NOT use next/font. Do NOT use Google Fonts.
 
 ## CONTENT SCHEMA (Markdown frontmatter)
 
-Every project file follows this exact schema:
+Spaces and Identities have different fields. Shared fields come first, then category-specific ones.
+
+### Spaces project file:
 
 ```yaml
 ---
@@ -205,25 +206,51 @@ title: "Nom du projet"
 slug: "nom-du-projet"
 year: "2024"
 client: "Nom du client"
+projectType: "apartment"
+location: "Paris — France"
+description: "Réhabilitation complète d'un appartement"
+surface: "80 m²"
+planImage: "/images/projects/nom-du-projet/plan.jpg"
 coverImage: "/images/projects/nom-du-projet/cover.jpg"
 images:
   - "/images/projects/nom-du-projet/01.jpg"
   - "/images/projects/nom-du-projet/02.jpg"
-  - "/images/projects/nom-du-projet/03.jpg"
+---
+```
+
+### Identities project file:
+
+```yaml
+---
+title: "Nom du projet"
+slug: "nom-du-projet"
+year: "2024"
+client: "Nom du client"
+projectType: "visual identity"
+location: "Paris — France"
+description: "Création de l'identité visuelle"
+mission: "conception/réalisation"
+coverImage: "/images/projects/nom-du-projet/cover.jpg"
+images:
+  - "/images/projects/nom-du-projet/01.jpg"
+  - "/images/projects/nom-du-projet/02.jpg"
 ---
 ```
 
 - `slug` must be kebab-case, URL-safe, no accents
 - `coverImage` is used in grids and carousels
 - `images` is the ordered list shown in the right column of the detail page
-- No body text content is needed (images only on detail pages)
+- `planImage` (Spaces only) is a small plan image shown at the bottom of the sticky left column
+- `surface` (Spaces only) e.g. "80 m²"
+- `mission` (Identities only) e.g. "conception/réalisation"
+- `description` is shown in the meta block of the detail view
 
 ---
 
 ## TYPESCRIPT TYPES (src/lib/types.ts)
 
 ```typescript
-export type ProjectCategory = 'espaces' | 'identites';
+export type ProjectCategory = 'spaces' | 'identities';
 
 export interface Project {
   title: string;
@@ -231,6 +258,12 @@ export interface Project {
   category: ProjectCategory;
   year: string;
   client: string;
+  projectType: string;
+  location: string;
+  description: string;
+  surface: string;
+  mission: string;
+  planImage: string;
   coverImage: string;
   images: string[];
 }
@@ -279,6 +312,12 @@ function parseProjectFile(filePath: string, category: ProjectCategory): Project 
     category,
     year: data.year,
     client: data.client,
+    projectType: data.projectType ?? '',
+    location: data.location ?? '',
+    description: data.description ?? '',
+    surface: data.surface ?? '',
+    mission: data.mission ?? '',
+    planImage: data.planImage ?? '',
     coverImage: data.coverImage,
     images: data.images ?? [],
   };
@@ -294,8 +333,8 @@ export function getProjectsByCategory(category: ProjectCategory): Project[] {
 
 export function getAllProjects(): Project[] {
   return [
-    ...getProjectsByCategory('espaces'),
-    ...getProjectsByCategory('identites'),
+    ...getProjectsByCategory('spaces'),
+    ...getProjectsByCategory('identities'),
   ];
 }
 
@@ -324,7 +363,7 @@ export function getAllProjectSlugs(
   --color-accent: #653c1c;
 
   --font-heading: 'BlackMango', serif;
-  --font-body: 'AcuminExtraCondensedThin', sans-serif;
+  --font-body: 'HeadingNowTrial-31Thin', sans-serif;
 
   --nav-height: 60px;
   --grid-gap: 2px;
@@ -351,9 +390,8 @@ export function getAllProjectSlugs(
 }
 
 @font-face {
-  font-family: 'AcuminExtraCondensedThin';
-  src: url('/fonts/AcuminExtraCondensedThin.woff2') format('woff2'),
-       url('/fonts/AcuminExtraCondensedThin.woff') format('woff');
+  font-family: 'HeadingNowTrial-31Thin';
+  src: url('/fonts/HeadingNowTrial-31Thin.ttf') format('truetype');
   font-weight: 100;
   font-style: normal;
   font-display: block;
@@ -567,13 +605,27 @@ NOT in layout.tsx. Rendered inside each page component.
 ```typescript
 import { defineConfig } from 'tinacms';
 
-const projectFields = [
-  { type: 'string' as const, name: 'title', label: 'Titre', required: true, isTitle: true },
+const sharedFields = [
+  { type: 'string' as const, name: 'title', label: 'Title', required: true, isTitle: true },
   { type: 'string' as const, name: 'slug', label: 'Slug (URL)', required: true },
-  { type: 'string' as const, name: 'year', label: 'Année', required: true },
+  { type: 'string' as const, name: 'year', label: 'Year', required: true },
   { type: 'string' as const, name: 'client', label: 'Client', required: true },
-  { type: 'image' as const, name: 'coverImage', label: 'Image de couverture', required: true },
-  { type: 'image' as const, name: 'images', label: 'Images du projet', list: true },
+  { type: 'string' as const, name: 'description', label: 'Description', ui: { component: 'textarea' } },
+  { type: 'string' as const, name: 'projectType', label: 'Project type', required: true },
+  { type: 'image' as const, name: 'coverImage', label: 'Cover image', required: true },
+  { type: 'image' as const, name: 'images', label: 'Project images', list: true },
+];
+
+const spacesFields = [
+  ...sharedFields,
+  { type: 'string' as const, name: 'location', label: 'Location', required: true },
+  { type: 'string' as const, name: 'surface', label: 'Surface' },
+  { type: 'image' as const, name: 'planImage', label: 'Plan' },
+];
+
+const identitiesFields = [
+  ...sharedFields,
+  { type: 'string' as const, name: 'mission', label: 'Mission' },
 ];
 
 export default defineConfig({
@@ -585,18 +637,18 @@ export default defineConfig({
   schema: {
     collections: [
       {
-        name: 'espaces',
-        label: 'Espaces',
-        path: 'content/projects/espaces',
+        name: 'spaces',
+        label: 'Spaces',
+        path: 'content/projects/spaces',
         format: 'md',
-        fields: projectFields,
+        fields: spacesFields,
       },
       {
-        name: 'identites',
-        label: 'Identités',
-        path: 'content/projects/identites',
+        name: 'identities',
+        label: 'Identities',
+        path: 'content/projects/identities',
         format: 'md',
-        fields: projectFields,
+        fields: identitiesFields,
       },
     ],
   },
@@ -723,7 +775,7 @@ For local dev without Tina Cloud:
 Before considering the project done, verify:
 - [ ] Page background is #ded6cb (beige) on every page
 - [ ] BlackMango font renders on all project titles and headings
-- [ ] AcuminExtraCondensedThin renders on nav, meta, body text
+- [ ] HeadingNowTrial-31Thin renders on nav, meta, body text
 - [ ] Hovering a project card shows overlay INSTANTLY (zero delay, no easing)
 - [ ] On project detail page: left column stays fixed while scrolling through images
 - [ ] Project carousel scrolls horizontally, no scrollbar visible

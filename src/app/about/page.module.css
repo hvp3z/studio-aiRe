@@ -25,14 +25,14 @@
 }
 
 .name {
-  font-size: 14px;
+  font-size: 21px;
 }
 
 .contact {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  font-size: 13px;
+  font-size: 20px;
 }
 
 .label {

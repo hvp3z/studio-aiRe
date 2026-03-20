@@ -28,11 +28,24 @@
   flex: 1;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  color: var(--color-text);
+  transition: color 0.2s ease;
+}
+
+.socialLink:hover {
+  color: var(--color-accent);
 }
 
 .link {
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: 20px;
   letter-spacing: 0.08em;
   color: var(--color-text);
   text-transform: uppercase;
@@ -44,7 +57,7 @@
 
 .active {
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: 20px;
   letter-spacing: 0.08em;
   color: var(--color-accent);
   text-transform: uppercase;

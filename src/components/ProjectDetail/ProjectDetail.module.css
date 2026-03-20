@@ -27,11 +27,23 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  font-size: 13px;
+  font-size: 20px;
 }
 
 .label {
   color: var(--color-accent);
+}
+
+.description {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 8px 0;
+}
+
+.planImage {
+  width: 200px;
+  height: auto;
+  margin-top: 24px;
 }
 
 .right {

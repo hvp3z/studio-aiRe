@@ -1,6 +1,6 @@
 import { defineConfig } from 'tinacms';
 
-const projectFields = [
+const sharedFields = [
   {
     type: 'string' as const,
     name: 'title',
@@ -28,14 +28,14 @@ const projectFields = [
   },
   {
     type: 'string' as const,
-    name: 'projectType',
-    label: 'Project type',
-    required: true,
+    name: 'description',
+    label: 'Description',
+    ui: { component: 'textarea' },
   },
   {
     type: 'string' as const,
-    name: 'location',
-    label: 'Location',
+    name: 'projectType',
+    label: 'Project type',
     required: true,
   },
   {
@@ -52,6 +52,35 @@ const projectFields = [
   },
 ];
 
+const spacesFields = [
+  ...sharedFields,
+  {
+    type: 'string' as const,
+    name: 'location',
+    label: 'Location',
+    required: true,
+  },
+  {
+    type: 'string' as const,
+    name: 'surface',
+    label: 'Surface',
+  },
+  {
+    type: 'image' as const,
+    name: 'planImage',
+    label: 'Plan',
+  },
+];
+
+const identitiesFields = [
+  ...sharedFields,
+  {
+    type: 'string' as const,
+    name: 'mission',
+    label: 'Mission',
+  },
+];
+
 export default defineConfig({
   branch: process.env.NEXT_PUBLIC_TINA_BRANCH ?? 'main',
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID ?? '',
@@ -65,14 +94,14 @@ export default defineConfig({
         label: 'Spaces',
         path: 'content/projects/spaces',
         format: 'md',
-        fields: projectFields,
+        fields: spacesFields,
       },
       {
         name: 'identities',
         label: 'Identities',
         path: 'content/projects/identities',
         format: 'md',
-        fields: projectFields,
+        fields: identitiesFields,
       },
     ],
   },

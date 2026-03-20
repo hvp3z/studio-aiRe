@@ -16,6 +16,10 @@ function parseProjectFile(filePath: string, category: ProjectCategory): Project 
     client: data.client,
     projectType: data.projectType ?? '',
     location: data.location ?? '',
+    description: data.description ?? '',
+    surface: data.surface ?? '',
+    mission: data.mission ?? '',
+    planImage: data.planImage ?? '',
     coverImage: data.coverImage,
     images: data.images ?? [],
   };

@@ -23,7 +23,7 @@
 
 .message {
   font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-size: 1.35rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   opacity: 0.8;
@@ -35,6 +35,6 @@
   }
 
   .message {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 }

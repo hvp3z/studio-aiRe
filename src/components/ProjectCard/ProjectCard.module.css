@@ -11,14 +11,10 @@
   object-fit: cover;
 }
 
-.card:hover .image {
-  opacity: 0;
-}
-
 .overlay {
   position: absolute;
   inset: 0;
-  background-color: #ded6cb;
+  background-color: rgba(222, 214, 203, 0.75);
   opacity: 0;
   display: flex;
   flex-direction: column;
@@ -41,7 +37,7 @@
 }
 
 .projectType {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   color: #000000;
   font-size: 16px;
   font-style: italic;
@@ -49,7 +45,7 @@
 }
 
 .location {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   color: #000000;
   font-size: 14px;
   text-align: center;

@@ -54,7 +54,6 @@ export default function ProjectCarousel({
                 />
                 <div className={styles.thumbOverlay} />
               </div>
-              <span className={styles.thumbTitle}>{project.title}</span>
             </Link>
           ))}
         </div>
