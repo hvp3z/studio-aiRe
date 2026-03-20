@@ -48,7 +48,7 @@ const sharedFields = [
     type: 'image' as const,
     name: 'images',
     label: 'Project images',
-    list: true,
+    list: true as const,
     ui: {
       validate: (value: string[] | undefined) => {
         if (value?.some((v) => !v)) {
