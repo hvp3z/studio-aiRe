@@ -13,5 +13,7 @@ description: |-
   . spaces that tell stories
   . identities that embody
   . experiences that resonate
+
+  Spaces · Identities · Experiences
 ---
 
