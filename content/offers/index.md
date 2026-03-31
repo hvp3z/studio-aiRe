@@ -1,5 +1,6 @@
 ---
-spacesImage: /images/projects/loft-marais/cover.jpg
-identitiesImage: /images/carrousel.png
-moreImage: /images/stickers.png
+spacesImage: /images/OFFRE2.png
+identitiesImage: /images/OFFRE3.png
+moreImage: /images/OFFRE4.png
 ---
+
