@@ -97,6 +97,50 @@ export default defineConfig({
   schema: {
     collections: [
       {
+        name: 'about',
+        label: 'About',
+        path: 'content/about',
+        format: 'md',
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          {
+            type: 'image' as const,
+            name: 'profileImage',
+            label: 'Profile photo',
+          },
+          {
+            type: 'string' as const,
+            name: 'description',
+            label: 'Description',
+            ui: { component: 'textarea' },
+          },
+        ],
+      },
+      {
+        name: 'offers',
+        label: 'Offers',
+        path: 'content/offers',
+        format: 'md',
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          {
+            type: 'image' as const,
+            name: 'spacesImage',
+            label: 'Spaces — image',
+          },
+          {
+            type: 'image' as const,
+            name: 'identitiesImage',
+            label: 'Identities — image',
+          },
+          {
+            type: 'image' as const,
+            name: 'moreImage',
+            label: 'More — image',
+          },
+        ],
+      },
+      {
         name: 'spaces',
         label: 'Spaces',
         path: 'content/projects/spaces',

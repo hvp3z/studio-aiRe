@@ -5,6 +5,31 @@ import { Project, ProjectCategory } from './types';
 
 const CONTENT_ROOT = path.join(process.cwd(), 'content', 'projects');
 
+export function getAboutContent(): { profileImage: string; description: string } {
+  const filePath = path.join(process.cwd(), 'content', 'about', 'index.md');
+  const raw = fs.readFileSync(filePath, 'utf-8');
+  const { data } = matter(raw);
+  return {
+    profileImage: data.profileImage ?? '',
+    description: data.description ?? '',
+  };
+}
+
+export function getOffersContent(): {
+  spacesImage: string;
+  identitiesImage: string;
+  moreImage: string;
+} {
+  const filePath = path.join(process.cwd(), 'content', 'offers', 'index.md');
+  const raw = fs.readFileSync(filePath, 'utf-8');
+  const { data } = matter(raw);
+  return {
+    spacesImage: data.spacesImage ?? '',
+    identitiesImage: data.identitiesImage ?? '',
+    moreImage: data.moreImage ?? '',
+  };
+}
+
 function parseProjectFile(filePath: string, category: ProjectCategory): Project {
   const raw = fs.readFileSync(filePath, 'utf-8');
   const { data } = matter(raw);

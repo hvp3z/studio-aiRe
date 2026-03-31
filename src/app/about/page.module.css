@@ -2,16 +2,28 @@
   min-height: calc(100vh - var(--nav-height));
 }
 
-.content {
+.columns {
+  display: flex;
+  gap: 80px;
   padding: 60px 40px;
-  max-width: 640px;
+  align-items: flex-start;
 }
 
-.title {
-  font-family: var(--font-heading);
-  font-size: 42px;
-  line-height: 1.1;
-  margin-bottom: 48px;
+.left {
+  flex-shrink: 0;
+  width: 280px;
+}
+
+.avatarWrapper {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin-bottom: 32px;
+  overflow: hidden;
+}
+
+.avatar {
+  object-fit: cover;
 }
 
 .info {
@@ -45,4 +57,15 @@
 
 .link:hover {
   color: var(--color-accent);
+}
+
+.right {
+  flex: 1;
+  padding-top: 8px;
+}
+
+.description {
+  font-size: 18px;
+  line-height: 1.7;
+  white-space: pre-wrap;
 }

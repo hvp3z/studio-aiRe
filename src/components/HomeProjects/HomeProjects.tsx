@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Project, ProjectCategory } from '@/lib/types';
 import ProjectCard from '@/components/ProjectCard/ProjectCard';
 import styles from './HomeProjects.module.css';
@@ -10,7 +11,10 @@ interface HomeProjectsProps {
 }
 
 export default function HomeProjects({ projects }: HomeProjectsProps): React.JSX.Element {
-  const [activeFilter, setActiveFilter] = useState<ProjectCategory | null>(null);
+  const searchParams = useSearchParams();
+  const [activeFilter, setActiveFilter] = useState<ProjectCategory | null>(
+    (searchParams.get('filter') as ProjectCategory) ?? null
+  );
 
   function handleFilter(category: ProjectCategory) {
     setActiveFilter((prev) => (prev === category ? null : category));
@@ -26,12 +30,14 @@ export default function HomeProjects({ projects }: HomeProjectsProps): React.JSX
         <button
           className={`${styles.filterTitle} ${activeFilter === 'spaces' ? styles.active : ''}`}
           onClick={() => handleFilter('spaces')}
+          data-text="SPACES"
         >
           SPACES
         </button>
         <button
           className={`${styles.filterTitle} ${activeFilter === 'identities' ? styles.active : ''}`}
           onClick={() => handleFilter('identities')}
+          data-text="IDENTITIES"
         >
           IDENTITIES
         </button>
