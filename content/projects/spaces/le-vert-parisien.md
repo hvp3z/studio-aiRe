@@ -25,6 +25,6 @@ images:
   - /images/LVP/final.png
 location: Paris - France
 surface: 19.6 m²
-planImage: /images/AIRBNB (glissés) 4.png
+planImage: /images/AIRBNB (glissés) 4 copie.png
 ---
 
