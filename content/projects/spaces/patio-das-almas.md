@@ -21,6 +21,6 @@ images:
   - /images/final.png
 location: 'Albufeira - Portugal '
 surface: 183 m2
-planImage: /images/LAFAYETTE (glissés) 4.png
+planImage: /images/LAFAYETTE (glissés) 4 copie.png
 ---
 
