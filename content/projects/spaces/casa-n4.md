@@ -16,6 +16,6 @@ images:
   - /images/Casa%20n%C2%B04%20-%20spaces/MOODBOARD.png
 location: Albufeira - Portugal
 surface: '66,5 m²'
-planImage: /images/Casa n4 final.png
+planImage: /images/Casa n4.png
 ---
 
