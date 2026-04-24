@@ -1,9 +1,6 @@
 import type { Metadata } from 'next';
 import Navigation from '@/components/Navigation/Navigation';
-import WorkInProgress from '@/components/WorkInProgress/WorkInProgress';
 import './globals.css';
-
-const isProd = process.env.NODE_ENV === 'production';
 
 export const metadata: Metadata = {
   title: 'Studio Aire',
@@ -28,14 +25,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {isProd ? (
-          <WorkInProgress />
-        ) : (
-          <>
-            <Navigation />
-            <main style={{ paddingTop: 'var(--nav-height)' }}>{children}</main>
-          </>
-        )}
+        <>
+          <Navigation />
+          <main style={{ paddingTop: 'var(--nav-height)' }}>{children}</main>
+        </>
       </body>
     </html>
   );
