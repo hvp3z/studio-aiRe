@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { Project, ProjectCategory } from './types';
+import { Offer, OfferSlug, Project, ProjectCategory } from './types';
 
 const CONTENT_ROOT = path.join(process.cwd(), 'content', 'projects');
 
@@ -15,10 +15,13 @@ export function getAboutContent(): { profileImage: string; description: string }
   };
 }
 
-export function getOffersContent(): {
+function getOffersData(): {
   spacesImage: string;
   identitiesImage: string;
   moreImage: string;
+  spacesDescription: string;
+  identitiesDescription: string;
+  moreDescription: string;
 } {
   const filePath = path.join(process.cwd(), 'content', 'offers', 'index.md');
   const raw = fs.readFileSync(filePath, 'utf-8');
@@ -27,7 +30,41 @@ export function getOffersContent(): {
     spacesImage: data.spacesImage ?? '',
     identitiesImage: data.identitiesImage ?? '',
     moreImage: data.moreImage ?? '',
+    spacesDescription: data.spacesDescription ?? '',
+    identitiesDescription: data.identitiesDescription ?? '',
+    moreDescription: data.moreDescription ?? '',
   };
+}
+
+export function getOffers(): Offer[] {
+  const data = getOffersData();
+  return [
+    {
+      slug: 'spaces',
+      label: 'Spaces',
+      image: data.spacesImage,
+      alt: 'Spaces — projets d interieur',
+      description: data.spacesDescription,
+    },
+    {
+      slug: 'identities',
+      label: 'Identities',
+      image: data.identitiesImage,
+      alt: 'Identities — projets d identite visuelle',
+      description: data.identitiesDescription,
+    },
+    {
+      slug: 'more',
+      label: 'More',
+      image: data.moreImage,
+      alt: 'More — autres offres',
+      description: data.moreDescription,
+    },
+  ];
+}
+
+export function getOfferBySlug(slug: OfferSlug): Offer | undefined {
+  return getOffers().find((offer) => offer.slug === slug);
 }
 
 function parseProjectFile(filePath: string, category: ProjectCategory): Project {

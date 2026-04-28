@@ -7,13 +7,13 @@
   background-color: var(--color-bg);
   display: flex;
   align-items: center;
-  padding: 0 40px;
+  padding: 0 44px;
   z-index: 100;
 }
 
 .links {
   display: flex;
-  gap: 32px;
+  gap: 36px;
   list-style: none;
   flex: 1;
 }
@@ -32,11 +32,14 @@
   gap: 20px;
 }
 
+.mobileLogo {
+  display: none;
+}
+
 .socialLink {
   display: flex;
   align-items: center;
   color: var(--color-text);
-  transition: color 0.2s ease;
 }
 
 .socialLink:hover {
@@ -61,4 +64,46 @@
   letter-spacing: 0.08em;
   color: var(--color-accent);
   text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  .nav {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 0 16px;
+  }
+
+  .links {
+    gap: 10px;
+    flex: unset;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    align-items: center;
+  }
+
+  .link,
+  .active {
+    font-size: 12px;
+    letter-spacing: 0.04em;
+  }
+
+  .right {
+    flex: unset;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  .logoCenter {
+    display: none;
+  }
+
+  .mobileLogo {
+    display: block;
+  }
+
+  .socialLink svg {
+    width: 14px;
+    height: 14px;
+  }
 }

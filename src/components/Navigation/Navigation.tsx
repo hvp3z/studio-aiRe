@@ -38,6 +38,9 @@ export default function Navigation(): React.JSX.Element {
       </div>
 
       <div className={styles.right}>
+        <div className={styles.mobileLogo}>
+          <Logo />
+        </div>
         <a
           href="https://www.instagram.com/studio___aire/"
           target="_blank"

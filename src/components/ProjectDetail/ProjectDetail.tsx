@@ -5,34 +5,25 @@ function SpacesMeta({
   project,
 }: ProjectDetailProps): React.JSX.Element {
   return (
-    <>
-      <div className={styles.meta}>
-        <p>
-          <span className={styles.label}>Année : </span>
-          {project.year}
-        </p>
-        {project.description && (
-          <p className={styles.description}>{project.description}</p>
-        )}
-        {project.surface && (
-          <p>
-            <span className={styles.label}>Surface : </span>
-            {project.surface}
-          </p>
-        )}
-        <p>
-          <span className={styles.label}>Lieu : </span>
-          {project.location}
-        </p>
-      </div>
-      {project.planImage && (
-        <img
-          src={project.planImage}
-          alt={`${project.title} — plan`}
-          className={styles.planImage}
-        />
+    <div className={styles.meta}>
+      <p>
+        <span className={styles.label}>Année : </span>
+        {project.year}
+      </p>
+      {project.description && (
+        <p className={styles.description}>{project.description}</p>
       )}
-    </>
+      {project.surface && (
+        <p className={styles.metaSmall}>
+          <span className={styles.label}>Surface : </span>
+          {project.surface}
+        </p>
+      )}
+      <p className={styles.metaSmall}>
+        <span className={styles.label}>Lieu : </span>
+        {project.location}
+      </p>
+    </div>
   );
 }
 
@@ -80,6 +71,13 @@ export default function ProjectDetail({
             className={styles.image}
           />
         ))}
+        {project.category === 'spaces' && project.planImage && (
+          <img
+            src={project.planImage}
+            alt={`${project.title} — plan`}
+            className={styles.image}
+          />
+        )}
       </div>
     </div>
   );

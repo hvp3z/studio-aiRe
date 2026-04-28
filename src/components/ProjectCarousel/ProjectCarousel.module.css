@@ -1,5 +1,5 @@
 .carousel {
-  padding: 60px 0 40px;
+  padding: 32px 0 38px;
   text-align: center;
 }
 
@@ -29,10 +29,9 @@
   flex-direction: row;
   gap: var(--grid-gap);
   overflow-x: auto;
-  padding: 0 60px;
+  padding: 0 44px;
   justify-content: center;
   scrollbar-width: none;
-  scroll-behavior: smooth;
 }
 
 .track::-webkit-scrollbar {
@@ -115,4 +114,19 @@
 
 .arrowRight {
   right: 12px;
+}
+
+@media (max-width: 900px) {
+  .carousel {
+    padding: 24px 0 28px;
+  }
+
+  .track {
+    padding: 0 22px;
+    justify-content: flex-start;
+  }
+
+  .arrow {
+    display: none;
+  }
 }

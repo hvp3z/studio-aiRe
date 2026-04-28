@@ -24,17 +24,10 @@ export default function AboutPage(): React.JSX.Element {
           )}
 
           <div className={styles.info}>
-            <p className={styles.studio}>Studio Aire</p>
             <p className={styles.name}>Emma Reilhac</p>
-          </div>
-
-          <div className={styles.contact}>
-            <p>
-              <span className={styles.label}>Email: </span>
-              <a href="mailto:contact@studioaire.fr" className={styles.link}>
-                contact@studioaire.fr
-              </a>
-            </p>
+            <a href="mailto:contact@studioaire.fr" className={styles.mail}>
+              contact@studioaire.fr
+            </a>
           </div>
         </div>
 
@@ -45,7 +38,7 @@ export default function AboutPage(): React.JSX.Element {
         )}
       </section>
 
-      <ProjectCarousel projects={allProjects} heading="Project Gallery" />
+      <ProjectCarousel projects={allProjects} />
     </div>
   );
 }

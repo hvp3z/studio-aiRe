@@ -1,4 +1,5 @@
 export type ProjectCategory = 'spaces' | 'identities';
+export type OfferSlug = 'spaces' | 'identities' | 'more';
 
 export interface Project {
   title: string;
@@ -33,4 +34,12 @@ export interface ProjectDetailProps {
 export interface ProjectCarouselProps {
   projects: Project[];
   heading?: string;
+}
+
+export interface Offer {
+  slug: OfferSlug;
+  label: string;
+  image: string;
+  alt: string;
+  description: string;
 }

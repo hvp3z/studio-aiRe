@@ -4,21 +4,22 @@
 
 .columns {
   display: flex;
-  gap: 80px;
-  padding: 60px 40px;
+  gap: 42px;
+  padding: 44px 40px 32px;
   align-items: flex-start;
 }
 
 .left {
   flex-shrink: 0;
-  width: 280px;
+  width: 34%;
+  max-width: 430px;
 }
 
 .avatarWrapper {
   position: relative;
-  width: 200px;
-  height: 200px;
-  margin-bottom: 32px;
+  width: 100%;
+  aspect-ratio: 5 / 6;
+  margin-bottom: 24px;
   overflow: hidden;
 }
 
@@ -27,45 +28,57 @@
 }
 
 .info {
-  margin-bottom: 32px;
-}
-
-.studio {
-  font-family: var(--font-heading);
-  font-size: 22px;
-  margin-bottom: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .name {
-  font-size: 21px;
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 3vw, 44px);
+  line-height: 1;
+  text-transform: uppercase;
 }
 
-.contact {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 20px;
-}
-
-.label {
-  color: var(--color-accent);
-}
-
-.link {
-  color: var(--color-text);
-}
-
-.link:hover {
+.mail {
+  font-size: 24px;
   color: var(--color-accent);
 }
 
 .right {
   flex: 1;
   padding-top: 8px;
+  max-width: 980px;
 }
 
 .description {
-  font-size: 18px;
-  line-height: 1.7;
+  font-size: 26px;
+  line-height: 1.5;
   white-space: pre-wrap;
+}
+
+@media (max-width: 900px) {
+  .columns {
+    flex-direction: column;
+    gap: 24px;
+    padding: 44px 20px 28px;
+  }
+
+  .left {
+    width: 100%;
+    max-width: none;
+  }
+
+  .name {
+    font-size: 42px;
+  }
+
+  .mail {
+    font-size: 21px;
+  }
+
+  .description {
+    font-size: 21px;
+    line-height: 1.5;
+  }
 }

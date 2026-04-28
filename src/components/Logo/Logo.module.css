@@ -1,9 +1,15 @@
 .logo {
   display: block;
-  height: 81px;
+  height: 72px;
 }
 
 .image {
   height: 100%;
   width: auto;
+}
+
+@media (max-width: 900px) {
+  .logo {
+    height: 30px;
+  }
 }

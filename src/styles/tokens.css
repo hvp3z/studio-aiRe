@@ -7,8 +7,8 @@
   --font-body: 'AcuminRPro', sans-serif;
 
   --nav-height: 60px;
-  --grid-gap: 20px;
+  --grid-gap: 24px;
   --card-aspect: 4 / 3;
-  --carousel-thumb-width: 280px;
-  --carousel-thumb-height: 200px;
+  --carousel-thumb-width: 300px;
+  --carousel-thumb-height: 215px;
 }

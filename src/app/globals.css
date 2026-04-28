@@ -53,3 +53,10 @@ img {
   display: block;
   max-width: 100%;
 }
+
+@media (max-width: 900px) {
+  :root {
+    --carousel-thumb-width: 260px;
+    --carousel-thumb-height: 180px;
+  }
+}
