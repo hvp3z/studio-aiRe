@@ -18,7 +18,7 @@ images:
   - /images/ChatGPT Image 13 févr. 2026 à 14_20_27.png
   - /images/ChatGPT Image 13 févr. 2026 à 14_26_02.png
   - /images/ChatGPT Image 13 févr. 2026 à 14_36_29.png
-  - /images/final.png
+  - /images/Illustration_sans_titre 2.png
 location: 'Albufeira - Portugal '
 surface: 183 m2
 planImage: /images/LAFAYETTE (glissés) 4 copie.png
