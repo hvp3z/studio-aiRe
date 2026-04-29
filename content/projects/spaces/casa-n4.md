@@ -13,7 +13,7 @@ images:
   - /images/Casa%20n%C2%B04%20-%20spaces/-04.png
   - /images/Casa%20n%C2%B04%20-%20spaces/-033.png
   - /images/Casa%20n%C2%B04%20-%20spaces/-01.png
-  - /images/Casa%20n%C2%B04%20-%20spaces/MOODBOARD.png
+  - /images/Illustration_sans_titre 3.png
 location: Albufeira - Portugal
 surface: '66,5 m²'
 planImage: /images/Casa n4.png
