@@ -1,5 +1,25 @@
+import React from 'react';
 import { ProjectDetailProps } from '@/lib/types';
 import styles from './ProjectDetail.module.css';
+import ScrollLayout from './ScrollLayout';
+
+function renderDescription(text: string): React.JSX.Element {
+  const paragraphs = text.split(/\n\n+/);
+  return (
+    <>
+      {paragraphs.map((paragraph, i) => (
+        <p key={i} className={styles.description}>
+          {paragraph.split('\n').map((line, j, arr) => (
+            <React.Fragment key={j}>
+              {line}
+              {j < arr.length - 1 && <br />}
+            </React.Fragment>
+          ))}
+        </p>
+      ))}
+    </>
+  );
+}
 
 function SpacesMeta({
   project,
@@ -10,9 +30,7 @@ function SpacesMeta({
         <span className={styles.label}>Année : </span>
         {project.year}
       </p>
-      {project.description && (
-        <p className={styles.description}>{project.description}</p>
-      )}
+      {project.description && renderDescription(project.description)}
       {project.surface && (
         <p className={styles.metaSmall}>
           <span className={styles.label}>Surface : </span>
@@ -36,9 +54,7 @@ function IdentitiesMeta({
         <span className={styles.label}>Année : </span>
         {project.year}
       </p>
-      {project.description && (
-        <p className={styles.description}>{project.description}</p>
-      )}
+      {project.description && renderDescription(project.description)}
       {project.mission && (
         <p>
           <span className={styles.label}>Mission : </span>
@@ -52,33 +68,36 @@ function IdentitiesMeta({
 export default function ProjectDetail({
   project,
 }: ProjectDetailProps): React.JSX.Element {
-  return (
-    <div className={styles.wrapper}>
-      <div className={styles.left}>
-        <h1 className={styles.title}>{project.title}</h1>
-        {project.category === 'spaces' ? (
-          <SpacesMeta project={project} />
-        ) : (
-          <IdentitiesMeta project={project} />
-        )}
-      </div>
-      <div className={styles.right}>
-        {project.images.filter(Boolean).map((src, index) => (
-          <img
-            key={index}
-            src={src}
-            alt={`${project.title} — ${index + 1}`}
-            className={styles.image}
-          />
-        ))}
-        {project.category === 'spaces' && project.planImage && (
-          <img
-            src={project.planImage}
-            alt={`${project.title} — plan`}
-            className={styles.image}
-          />
-        )}
-      </div>
-    </div>
+  const left = (
+    <>
+      <h1 className={styles.title}>{project.title}</h1>
+      {project.category === 'spaces' ? (
+        <SpacesMeta project={project} />
+      ) : (
+        <IdentitiesMeta project={project} />
+      )}
+    </>
   );
+
+  const right = (
+    <>
+      {project.images.filter(Boolean).map((src, index) => (
+        <img
+          key={index}
+          src={src}
+          alt={`${project.title} — ${index + 1}`}
+          className={styles.image}
+        />
+      ))}
+      {project.category === 'spaces' && project.planImage && (
+        <img
+          src={project.planImage}
+          alt={`${project.title} — plan`}
+          className={styles.image}
+        />
+      )}
+    </>
+  );
+
+  return <ScrollLayout left={left} right={right} />;
 }

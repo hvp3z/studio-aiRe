@@ -46,7 +46,7 @@ export default function HomeProjects({ projects }: HomeProjectsProps): React.JSX
       <div className={styles.grid}>
         {displayed.map((project) => (
           <ProjectCard
-            key={project.slug}
+            key={`${project.category}-${project.slug}`}
             project={project}
             href={`/${project.category}/${project.slug}`}
           />

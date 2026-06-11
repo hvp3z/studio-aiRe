@@ -42,7 +42,7 @@ export default function ProjectCarousel({
         <div className={styles.track} ref={trackRef}>
           {projects.map((project) => (
             <Link
-              key={project.slug}
+              key={`${project.category}-${project.slug}`}
               href={`/${project.category}/${project.slug}`}
               className={styles.item}
             >

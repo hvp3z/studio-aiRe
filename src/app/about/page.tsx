@@ -25,8 +25,8 @@ export default function AboutPage(): React.JSX.Element {
 
           <div className={styles.info}>
             <p className={styles.name}>Emma Reilhac</p>
-            <a href="mailto:contact@studioaire.fr" className={styles.mail}>
-              contact@studioaire.fr
+            <a href="mailto:contact@studio-aire.fr" className={styles.mail}>
+              contact@studio-aire.fr
             </a>
           </div>
         </div>

@@ -129,14 +129,32 @@ export default defineConfig({
             label: 'Spaces — image',
           },
           {
+            type: 'string' as const,
+            name: 'spacesDescription',
+            label: 'Spaces — description',
+            ui: { component: 'textarea' },
+          },
+          {
             type: 'image' as const,
             name: 'identitiesImage',
             label: 'Identities — image',
           },
           {
+            type: 'string' as const,
+            name: 'identitiesDescription',
+            label: 'Identities — description',
+            ui: { component: 'textarea' },
+          },
+          {
             type: 'image' as const,
             name: 'moreImage',
             label: 'More — image',
+          },
+          {
+            type: 'string' as const,
+            name: 'moreDescription',
+            label: 'More — description',
+            ui: { component: 'textarea' },
           },
         ],
       },

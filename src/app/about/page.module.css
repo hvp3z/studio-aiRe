@@ -5,7 +5,7 @@
 .columns {
   display: flex;
   gap: 42px;
-  padding: 44px 40px 32px;
+  padding: 44px var(--page-margin-x) 32px;
   align-items: flex-start;
 }
 
@@ -41,7 +41,7 @@
 }
 
 .mail {
-  font-size: 24px;
+  font-size: 18px;
   color: var(--color-accent);
 }
 
@@ -52,7 +52,7 @@
 }
 
 .description {
-  font-size: 26px;
+  font-size: 18px;
   line-height: 1.5;
   white-space: pre-wrap;
 }
@@ -61,7 +61,7 @@
   .columns {
     flex-direction: column;
     gap: 24px;
-    padding: 44px 20px 28px;
+    padding: 44px var(--page-margin-x) 28px;
   }
 
   .left {
@@ -74,11 +74,11 @@
   }
 
   .mail {
-    font-size: 21px;
+    font-size: 16px;
   }
 
   .description {
-    font-size: 21px;
+    font-size: 16px;
     line-height: 1.5;
   }
 }

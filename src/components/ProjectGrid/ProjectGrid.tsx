@@ -10,7 +10,7 @@ export default function ProjectGrid({
     <div className={styles.grid}>
       {projects.map((project) => (
         <ProjectCard
-          key={project.slug}
+          key={`${project.category}-${project.slug}`}
           project={project}
           href={`/${category}/${project.slug}`}
         />

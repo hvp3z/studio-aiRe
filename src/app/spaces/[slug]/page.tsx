@@ -21,7 +21,9 @@ export default async function SpaceDetailPage({
   if (!project) notFound();
 
   const allProjects = getAllProjects();
-  const carouselProjects = allProjects.filter((p) => p.slug !== project.slug);
+  const carouselProjects = allProjects.filter(
+    (p) => !(p.slug === project.slug && p.category === project.category)
+  );
 
   return (
     <>

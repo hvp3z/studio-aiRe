@@ -5,7 +5,7 @@
 .cards {
   display: flex;
   flex-direction: row;
-  padding: 44px 40px 32px;
+  padding: 27px var(--page-margin-x) 32px;
   gap: var(--grid-gap);
 }
 
@@ -13,7 +13,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 27px;
   text-decoration: none;
   color: inherit;
 }
@@ -44,7 +44,7 @@
 @media (max-width: 900px) {
   .cards {
     flex-direction: column;
-    padding: 44px 20px;
+    padding: 21px var(--page-margin-x);
     gap: 12px;
   }
 
