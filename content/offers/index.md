@@ -12,7 +12,7 @@ spacesDescription: |-
 
   . Analysis of the space and project needs
   . Spatial concept and design intentions
-  .Layout plans and space planning
+  . Layout plans and space planning
   . Selection of materials, colours and atmospheres
   . Furniture sourcing and key elements selection
 identitiesImage: /images/OFFRE3.png
