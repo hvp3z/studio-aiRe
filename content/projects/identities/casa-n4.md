@@ -14,6 +14,6 @@ images:
   - /images/Free_Tote_Bag_Mockup_3.png
   - /images/Signboard_On_The_Wall_Mockup.png
   - /images/Sans titre-1.png
-mission: 'No'
+mission: '-'
 ---
 
