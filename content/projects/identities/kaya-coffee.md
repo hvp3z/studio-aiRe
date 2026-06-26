@@ -15,6 +15,6 @@ description: |-
   More than a coffee shop, Kaya Coffee represents a new vision of Ivorian coffee culture: contemporary, vibrant and rooted in local identity. The result is a bold and memorable brand universe that celebrates both tradition and modern urban life in Abidjan.
 projectType: Café
 coverImage: /images/Kaya/carrousel.png
-mission: 'No'
+mission: '-'
 ---
 
