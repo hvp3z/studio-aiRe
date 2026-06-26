@@ -2,7 +2,7 @@
 title: Le Vert Parisien
 slug: le-vert-parisien
 year: '2026'
-client: 'No'
+client: '-'
 description: |-
   A studio redesigned to maximize space and enhance its appeal as an Airbnb rental.  
 
