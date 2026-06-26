@@ -14,6 +14,6 @@ images:
   - /images/papier soie.png
   - /images/stickers.png
   - /images/final charte balm.png
-mission: 'No'
+mission: '-'
 ---
 
